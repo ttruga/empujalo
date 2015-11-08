@@ -4,6 +4,24 @@ $(function() {
 	// Replace this line with the one on your Quickstart Guide Page
 	Parse.initialize("HIdHMohXXU001RA3Mprd0PVxheSKZvKTV2aCETM4", "B2zi3VC0duOrR6mcAJdspek1DrnWi9LIyxWQ33ih");
 	
+	var Blog = Parse.Object.extend('Blog', {
+	    create: function(title, content) {
+	        this.set({
+	            'title': title,
+	            'content': content,
+	            'author': Parse.User.current()
+	        }).save(null, {
+	            success: function(blog) {
+	                alert('You added a new blog: ' + blog.get('title'));
+	            },
+	            error: function(blog, error) {
+	                console.log(blog);
+	                console.log(error);
+	            }
+	        });
+	    }
+	});
+	
 	var LoginView = Parse.View.extend({
 	    template: Handlebars.compile($('#login-tpl').html()),
 	    events: {
@@ -40,11 +58,41 @@ $(function() {
     
     var WelcomeView = Parse.View.extend({
         template: Handlebars.compile($('#welcome-tpl').html()),
+        events: {
+        'click .add-blog': 'add'
+    	},
+    	add: function(){
+			var addBlogView = new AddBlogView();
+				addBlogView.render();
+			$('.main-container').html(addBlogView.el);
+		},
         render: function(){
             var attributes = this.model.toJSON();
             this.$el.html(this.template(attributes));
-        }
+        },
+        
     });
+
+	var AddBlogView = Parse.View.extend({
+	    template: Handlebars.compile($('#add-tpl').html()),
+	    events: {
+        	'submit .form-add': 'submit'
+    	},
+		submit: function(e){
+		    // Prevent Default Submit Event     
+		    e.preventDefault();
+		    // Take the form and put it into a data object
+		    var data = $(e.target).serializeArray(),
+		    // Create a new instance of Blog
+		    blog = new Blog();
+		    // Call .create()
+		    blog.create(data[0].value, data[1].value);
+		},
+	    render: function(){
+	        this.$el.html(this.template());
+	    }
+	});
+
 
 
 	var loginView = new LoginView();
