@@ -19,12 +19,12 @@
     
   </head>
   <body>
-	  
+  	
   	<div class="blog-masthead">
 	  	<div class="container">
 		  	<nav class="blog-nav">
-				<a class="blog-nav-item active" href="index.html">Home</a>
-				<a class="blog-nav-item"        href="admin.html">Admin</a>
+				<a class="blog-nav-item "       href="index.html">Home</a>
+				<a class="blog-nav-item active" href="admin.html">Admin</a>
 			</nav>
 		</div>
 	</div>
@@ -38,8 +38,14 @@
 	    
 	    <div class="row">
 			<div class="col-sm-8 blog-main">
-			    <div class="main-container">
-			    </div>
+				<div class="main-container">
+					<form class="form-signin" role="form">
+				        <h2 class="form-signin-heading">Entra por favor</h2>
+				        <input type="text"     name="username" class="form-control" placeholder="Username" required="" autofocus="">
+				        <input type="password" name="password" class="form-control" placeholder="Password" required="">
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    				</form>
+				</div>
 			</div>
 		</div><!-- /.row -->
 		
@@ -65,7 +71,7 @@
 	<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-    <script src="js/empujalo.js"></script>
+    <script src="js/admin.js"></script>
   
   
   </body>
